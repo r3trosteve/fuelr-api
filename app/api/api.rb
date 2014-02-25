@@ -5,5 +5,6 @@ class API < Grape::API
 	format :json
 
 	mount Fuelr::ProductApi
+	mount Fuelr::CustomerApi
 
 end
