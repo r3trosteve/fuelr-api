@@ -13,13 +13,14 @@ describe Fuelr::ProductApi do
 
   	context "with one product" do
   		before do
-  		  product = Product.create! name: "Stretching", description: "Is good for you"
+  		  # product = Product.create!(:product)
+        product = FactoryGirl.create :product
   		end
   		it "returns a list of products" do
   		  get "/api/v1/products"
 	      response.status.should be(200)
 	      result = JSON.parse(response.body)
-	      expect(result.first["name"]).to eq("Stretching")
+	      expect(result.first["name"]).to eq("Core workout for pregnant developers")
 	    end
   	end
   end

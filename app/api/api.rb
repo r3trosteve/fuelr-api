@@ -6,5 +6,6 @@ class API < Grape::API
 
 	mount Fuelr::ProductApi
 	mount Fuelr::CustomerApi
+	mount Fuelr::SlotApi
 
 end
