@@ -19,6 +19,7 @@ describe Fuelr::ProductApi do
 
 			before do
 				FactoryGirl.create :slot, product: @product
+				FactoryGirl.create :unavailable_slot, product: @product
 			end
 
 			it "returns one available slot" do
