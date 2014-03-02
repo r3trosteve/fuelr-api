@@ -26,6 +26,15 @@ describe Fuelr::ProductApi do
 				get "/api/v1/products/1/available_slots"
 				expect(JSON.parse(response.body).length).to be(1)
 			end
+
+			it "allows the customer to book a slot" do
+				get "/api/v1/products/1/available_slots"
+				slot = JSON.parse(response.body).first
+				# fetch the first slot from the result, store it's id
+				# TODO oauth2 http://blog.yorkxin.org/posts/2013/11/05/oauth2-tutorial-grape-api-doorkeeper-en
+				post "/api/v1/slots/#{slot['id']}/appointments"
+				response.status.should be(201)
+			end
 		end
 
 	end

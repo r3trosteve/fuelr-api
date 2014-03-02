@@ -11,7 +11,7 @@ module Fuelr
 					# params[:product_id]
 					@product = Product.find(params[:product_id])
 					@product.slots.where("capacity > 0")
-				end
+				end			
 			end
 
 		end
