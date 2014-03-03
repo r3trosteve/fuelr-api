@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Scheduler do
 
-	describe "#create!" do
+	describe "#create! succesfully" do
 		let(:slot) { FactoryGirl.create :slot }
 
 		it "creates an appointment" do
@@ -17,14 +17,33 @@ describe Scheduler do
 			}.to  change{slot.capacity}.by(-1)
 		end
 
-		it "returns the appointment" #do
-		# 	expect{
-		# 		Scheduler.create!(slot)
-		# 	}.should respond_with(Appointment) 
-		# end
+		it "returns an appointment" do
+			expect(Scheduler.create!(slot).class).to eq(Appointment)
+		end
 
+		it "sends a confirmation email" do
+			expect{
+        Scheduler.send_confirmation
+			}.to change(ActionMailer::Base.deliveries).by(1)
 
-		it "sends a confirmation email"
+			# perform magics
+			#emails = ActionMailer::Base.deliveries.map{|email| email.to.first}
+			#expect(emails).to include("recipient@example.com")
+		end
+		  
+		#end
+
+	end
+
+	describe "#create! when no capacity" do
+		let(:slot) { FactoryGirl.create :slot }
+		before do
+			slot.update_attribute(:capacity, 0)
+		end
+
+		it "raise an error" do
+			expect{Scheduler.create!(slot)}.to raise_error(Fuelr::NoCapacityError)
+		end
 	end
 
 end

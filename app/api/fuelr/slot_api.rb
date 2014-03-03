@@ -1,4 +1,5 @@
 module Fuelr
+
 	class SlotApi < Grape::API
 
 		resource "slots" do
@@ -6,9 +7,14 @@ module Fuelr
 				post '/appointments' do
 					# params[:product_id]
 					@slot = Slot.find(params[:slot_id])
-				    Scheduler.create!(@slot)
-				    # once we have auth:
-				    # Scheduler.create!(@slot, current_user)
+
+					begin
+				  	Scheduler.create!(@slot)
+				  rescue Fuelr::NoCapacityError
+				  	redirect_to :action => 'forbidden', :status => 403
+				  end
+				  # once we have auth:
+				  # Scheduler.create!(@slot, current_user)
 				end			
 			end
 
