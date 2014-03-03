@@ -14,7 +14,7 @@ describe Scheduler do
 		it "decrements the slot's capacity" do
 		  expect{
 				Scheduler.create!(slot)
-			}.to  change{slot.capacity}.by(-1)
+			}.to change{slot.capacity}.by(-1)
 		end
 
 		it "returns an appointment" do
@@ -23,8 +23,8 @@ describe Scheduler do
 
 		it "sends a confirmation email" do
 			expect{
-        Scheduler.send_confirmation
-			}.to change(ActionMailer::Base.deliveries).by(1)
+        Scheduler.create!(slot)
+			}.to change{ActionMailer::Base.deliveries.length}.by(1)
 
 			# perform magics
 			#emails = ActionMailer::Base.deliveries.map{|email| email.to.first}
@@ -36,10 +36,7 @@ describe Scheduler do
 	end
 
 	describe "#create! when no capacity" do
-		let(:slot) { FactoryGirl.create :slot }
-		before do
-			slot.update_attribute(:capacity, 0)
-		end
+		let(:slot) { FactoryGirl.create :unavailable_slot }
 
 		it "raise an error" do
 			expect{Scheduler.create!(slot)}.to raise_error(Fuelr::NoCapacityError)

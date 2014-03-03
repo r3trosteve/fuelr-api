@@ -23,5 +23,8 @@ module Fuelr
     # Grape Gem for Fuelr API
     config.paths.add File.join('app', 'api'), glob: File.join('**', '*.rb')
     config.autoload_paths += Dir[Rails.root.join('app', 'api', '*')]
+
+    # Devise Settings
+    config.assets.initialize_on_precompile = false
   end
 end

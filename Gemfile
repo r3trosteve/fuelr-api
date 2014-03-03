@@ -30,6 +30,9 @@ gem 'spring',        group: :development
 gem 'grape'
 gem 'grape-swagger-rails'
 
+#User Authentication
+gem 'devise'
+
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.0.0.beta'

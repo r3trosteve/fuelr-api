@@ -5,14 +5,12 @@ end
 
 class Scheduler
 
-	
-
 	def self.create!(slot)
 		if slot.capacity > 0
 			# user = User.find(:user_id)
 			appointment = Appointment.create!(slot: slot)
 			slot.update_attribute(:capacity, slot.capacity - 1)
-			# user.send_confirmation
+			SchedulerMailer.confirm_slot(appointment).deliver
 			appointment
 		else
 			raise Fuelr::NoCapacityError

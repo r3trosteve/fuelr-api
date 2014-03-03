@@ -1,9 +1,9 @@
 class User < ActiveRecord::Base
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable and :omniauthable
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :trackable, :validatable
+	
 	has_many :appointments, through: :slots
-	has_secure_password
-
-	def send_confirmation
-		SchedulerMailer.confirm_slot(self).deliver
-	end
 
 end
