@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140303163827) do
+ActiveRecord::Schema.define(version: 20140306101125) do
 
   create_table "appointments", force: true do |t|
     t.integer  "user_id"
@@ -49,7 +49,6 @@ ActiveRecord::Schema.define(version: 20140303163827) do
     t.string   "email",                               null: false
     t.string   "first_name"
     t.string   "last_name"
-    t.string   "password_digest"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "encrypted_password",     default: "", null: false
