@@ -1,9 +1,15 @@
 require 'spec_helper'
 
-describe Fuelr::ProductApi do
+describe ProductsController do
   describe "GET /api/v1/products" do
 
+    let(:token) { double :accessible? => true }
+    before do
+      controller.stub(:doorkeeper_token) { token }
+    end
+
   	context "without any product" do
+      
 	    it "returns a list of products" do
   			get "/api/v1/products"
 	      response.status.should be(200)

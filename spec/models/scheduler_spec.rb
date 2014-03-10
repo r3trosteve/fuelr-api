@@ -3,18 +3,20 @@ require 'spec_helper'
 
 describe Scheduler do
 
+	let(:user) { FactoryGirl.create :user }
+
 	describe "#create! succesfully" do
 		let(:slot) { FactoryGirl.create :slot }
 
 		it "creates an appointment" do
 			expect{
-				Scheduler.create!(slot)
+				Scheduler.create!(slot, user)
 			}.to change(Appointment, :count).by(1)
 		end
 
 		it "decrements the slot's capacity" do
 		  expect{
-				Scheduler.create!(slot)
+				Scheduler.create!(slot, user)
 			}.to change{slot.capacity}.by(-1)
 		end
 
@@ -24,7 +26,7 @@ describe Scheduler do
 
 		it "sends a confirmation email" do
 			expect{
-        Scheduler.create!(slot)
+        Scheduler.create!(slot, user)
 			}.to change{ActionMailer::Base.deliveries.length}.by(1)
 
 			# perform magics
@@ -40,7 +42,7 @@ describe Scheduler do
 		let(:slot) { FactoryGirl.create :unavailable_slot }
 
 		it "raise an error" do
-			expect{Scheduler.create!(slot)}.to raise_error(Fuelr::NoCapacityError)
+			expect{Scheduler.create!(slot, user)}.to raise_error(Fuelr::NoCapacityError)
 		end
 	end
 

@@ -1,16 +1,19 @@
 require 'spec_helper'
 
-describe Fuelr::ProductApi do
+describe SlotsController do
+
+	let(:token) { double :accessible? => true }
 
 	before do
+		controller.stub(:doorkeeper_token) { token }
 		@product = FactoryGirl.create(:product)
 	end
 
-	describe "GET /api/v1/products/1/available_slots" do
+	describe "GET /api/v1/products/1/slots/available" do
 
 		context "with no availability" do
 			it "returns an empty list" do
-				get "/api/v1/products/1/available_slots"
+				get "/api/v1/products/1/slots/available"
 				expect(JSON.parse(response.body)).to eq []
 			end
 		end
@@ -23,12 +26,12 @@ describe Fuelr::ProductApi do
 			end
 
 			it "returns one available slot" do
-				get "/api/v1/products/1/available_slots"
+				get "/api/v1/products/1/slots/available"
 				expect(JSON.parse(response.body).length).to be(1)
 			end
 
 			it "allows the customer to book a slot" do
-				get "/api/v1/products/1/available_slots"
+				get "/api/v1/products/1/slots/available"
 				slot = JSON.parse(response.body).first
 				# fetch the first slot from the result, store it's id
 				# TODO oauth2 http://blog.yorkxin.org/posts/2013/11/05/oauth2-tutorial-grape-api-doorkeeper-en

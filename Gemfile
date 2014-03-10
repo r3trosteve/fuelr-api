@@ -27,12 +27,12 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'spring',        group: :development
 
 #API Gems
-gem 'grape'
-gem 'grape-swagger-rails'
+gem 'rails-api'
 
 #User Authentication
 gem 'devise'
 gem 'doorkeeper'
+gem 'oauth2'
 
 
 group :development, :test do
