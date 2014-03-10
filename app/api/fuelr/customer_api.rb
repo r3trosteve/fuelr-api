@@ -12,7 +12,7 @@ module Fuelr
 				User.create!({
 						email: 									params[:email],
 						password: 							"letmeinplease",
-						password_confirmation: 							"letmeinplease"
+						password_confirmation: 	"letmeinplease"
 				})
 			end
 		end

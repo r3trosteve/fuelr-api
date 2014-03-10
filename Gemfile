@@ -32,6 +32,7 @@ gem 'grape-swagger-rails'
 
 #User Authentication
 gem 'devise'
+gem 'doorkeeper'
 
 
 group :development, :test do

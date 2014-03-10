@@ -5,10 +5,9 @@ end
 
 class Scheduler
 
-	def self.create!(slot)
+	def self.create!(slot, user)
 		if slot.capacity > 0
-			# user = User.find(:user_id)
-			appointment = Appointment.create!(slot: slot)
+			appointment = Appointment.create!(slot: slot, user: user)
 			slot.update_attribute(:capacity, slot.capacity - 1)
 			SchedulerMailer.confirm_slot(appointment).deliver
 			appointment

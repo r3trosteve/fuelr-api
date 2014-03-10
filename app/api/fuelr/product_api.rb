@@ -1,5 +1,6 @@
 module Fuelr
 	class ProductApi < Grape::API
+		doorkeeper_for :all
 
 		resource "products" do
 			get do

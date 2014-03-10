@@ -9,14 +9,19 @@ module Fuelr
 					@slot = Slot.find(params[:slot_id])
 
 					begin
-				  	Scheduler.create!(@slot)
+				  	# Scheduler.create!(@slot)
+				    Scheduler.create!(@slot, current_resource_owner)
 				  rescue Fuelr::NoCapacityError
 				  	redirect_to :action => 'forbidden', :status => 403
 				  end
-				  # once we have auth:
-				  # Scheduler.create!(@slot, current_user)
 				end			
 			end
+
+			private
+
+			  def current_resource_owner
+			    User.find(doorkeeper_token.resource_owner_id) if doorkeeper_token
+			  end
 
 		end
  	end
